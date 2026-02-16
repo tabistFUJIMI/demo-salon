@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "name": "藤見 彩香",
+    "role": "オーナースタイリスト",
+    "experience": "15年",
+    "specialty": "ナチュラルボブ、透明感カラー",
+    "image": "images/staff-01.jpg",
+    "profile": "髪質やライフスタイルに合わせた、再現性の高いスタイルを心がけています。",
+    "status": "published",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "name": "山田 結衣",
+    "role": "スタイリスト",
+    "experience": "8年",
+    "specialty": "ショートカット、ハイライト",
+    "image": "images/staff-02.jpg",
+    "profile": "一人ひとりの魅力を引き出すカットを大切にしています。",
+    "status": "published",
+    "order": 2
+  }
+]

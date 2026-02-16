@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お知らせ管理 | ふじみDXラボ ヘアサロン</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <h1>ふじみDXラボ ヘアサロン 管理画面</h1>
+    <div class="admin-header-right">
+      <a href="../index.html" target="_blank">サイトを表示 ↗</a>
+      <a href="#" id="logout-btn">ログアウト</a>
+    </div>
+  </header>
+
+  <nav class="admin-sidebar">
+    <a href="index.html"><span class="admin-sidebar-icon">📊</span>ダッシュボード</a>
+    <a href="news-edit.html" class="active"><span class="admin-sidebar-icon">📰</span>お知らせ管理</a>
+    <a href="price-edit.html"><span class="admin-sidebar-icon">💇</span>料金管理</a>
+    <a href="staff-edit.html"><span class="admin-sidebar-icon">👤</span>スタッフ管理</a>
+  </nav>
+
+  <main class="admin-main">
+    <div id="list-view">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2 style="font-size:20px;color:#7C8C6E;">お知らせ管理</h2>
+        <button class="admin-btn admin-btn-primary" onclick="showEditor()">＋ 新規作成</button>
+      </div>
+      <div class="admin-card">
+        <table class="admin-table">
+          <thead><tr><th>日付</th><th>タイトル</th><th>カテゴリ</th><th>ステータス</th><th></th></tr></thead>
+          <tbody id="news-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="edit-view" style="display:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <button class="admin-btn admin-btn-secondary" onclick="showList()">← 戻る</button>
+        <h2 style="font-size:20px;color:#7C8C6E;" id="form-title">新規作成</h2>
+      </div>
+      <div class="admin-card">
+        <div class="admin-form">
+          <input type="hidden" id="edit-id">
+          <label>タイトル</label>
+          <input type="text" id="edit-title" placeholder="お知らせのタイトル">
+          <label>カテゴリ</label>
+          <select id="edit-category">
+            <option value="お知らせ">お知らせ</option>
+            <option value="キャンペーン">キャンペーン</option>
+          </select>
+          <label>本文（HTML可）</label>
+          <textarea id="edit-body" placeholder="本文を入力してください。"></textarea>
+          <label>ステータス</label>
+          <select id="edit-status">
+            <option value="published">公開</option>
+            <option value="draft">下書き</option>
+          </select>
+          <div class="admin-form-actions">
+            <button class="admin-btn admin-btn-primary" onclick="saveItem()">保存する</button>
+            <button class="admin-btn admin-btn-danger" id="delete-btn" onclick="deleteItem()" style="display:none;">削除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="admin-toast" id="toast"></div>
+
+  <script src="../js/news-store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function renderList() {
+      const news = NewsStore.getAll();
+      document.getElementById('news-table').innerHTML = news.map(n => {
+        const d = new Date(n.createdAt).toLocaleDateString('ja-JP');
+        const st = n.status === 'published' ? '<span class="status-badge status-published">公開中</span>' : '<span class="status-badge status-draft">下書き</span>';
+        return `<tr>
+          <td>${d}</td><td>${n.title}</td><td>${n.category}</td><td>${st}</td>
+          <td><a href="#" onclick="editItem('${n.id}');return false;" style="color:#7C8C6E;font-size:13px;font-weight:600;">編集</a></td>
+        </tr>`;
+      }).join('');
+      if (news.length === 0) {
+        document.getElementById('news-table').innerHTML = '<tr><td colspan="5" style="color:#999;text-align:center;padding:24px;">お知らせがありません</td></tr>';
+      }
+    }
+
+    function showList() {
+      document.getElementById('list-view').style.display = '';
+      document.getElementById('edit-view').style.display = 'none';
+      renderList();
+    }
+
+    function showEditor(id) {
+      document.getElementById('list-view').style.display = 'none';
+      document.getElementById('edit-view').style.display = '';
+      if (id) {
+        const item = NewsStore.getById(id);
+        if (!item) return showList();
+        document.getElementById('edit-id').value = item.id;
+        document.getElementById('edit-title').value = item.title;
+        document.getElementById('edit-category').value = item.category;
+        document.getElementById('edit-body').value = item.body;
+        document.getElementById('edit-status').value = item.status;
+        document.getElementById('form-title').textContent = '編集';
+        document.getElementById('delete-btn').style.display = '';
+      } else {
+        document.getElementById('edit-id').value = '';
+        document.getElementById('edit-title').value = '';
+        document.getElementById('edit-category').value = 'お知らせ';
+        document.getElementById('edit-body').value = '';
+        document.getElementById('edit-status').value = 'published';
+        document.getElementById('form-title').textContent = '新規作成';
+        document.getElementById('delete-btn').style.display = 'none';
+      }
+    }
+
+    function editItem(id) { showEditor(id); }
+
+    function saveItem() {
+      const id = document.getElementById('edit-id').value;
+      const title = document.getElementById('edit-title').value.trim();
+      if (!title) { alert('タイトルを入力してください'); return; }
+      NewsStore.save({
+        id: id || undefined,
+        title,
+        category: document.getElementById('edit-category').value,
+        body: document.getElementById('edit-body').value,
+        status: document.getElementById('edit-status').value,
+      });
+      showToast('保存しました');
+      showList();
+    }
+
+    function deleteItem() {
+      const id = document.getElementById('edit-id').value;
+      if (!id) return;
+      if (!confirm('本当に削除しますか？')) return;
+      NewsStore.delete(id);
+      showToast('削除しました');
+      showList();
+    }
+
+    window.onAdminAuth = function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (id) { showEditor(id); } else { renderList(); }
+    };
+
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem('admin_auth_hash');
+      location.reload();
+    });
+  </script>
+</body>
+</html>

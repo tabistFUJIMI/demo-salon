@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スタッフ管理 | ふじみDXラボ ヘアサロン</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <h1>ふじみDXラボ ヘアサロン 管理画面</h1>
+    <div class="admin-header-right">
+      <a href="../index.html" target="_blank">サイトを表示 ↗</a>
+      <a href="#" id="logout-btn">ログアウト</a>
+    </div>
+  </header>
+
+  <nav class="admin-sidebar">
+    <a href="index.html"><span class="admin-sidebar-icon">📊</span>ダッシュボード</a>
+    <a href="news-edit.html"><span class="admin-sidebar-icon">📰</span>お知らせ管理</a>
+    <a href="price-edit.html"><span class="admin-sidebar-icon">💇</span>料金管理</a>
+    <a href="staff-edit.html" class="active"><span class="admin-sidebar-icon">👤</span>スタッフ管理</a>
+  </nav>
+
+  <main class="admin-main">
+    <div id="list-view">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2 style="font-size:20px;color:#7C8C6E;">スタッフ管理</h2>
+        <button class="admin-btn admin-btn-primary" onclick="showEditor()">＋ 新規作成</button>
+      </div>
+      <div class="admin-card">
+        <table class="admin-table">
+          <thead><tr><th>名前</th><th>役職</th><th>経験年数</th><th>ステータス</th><th></th></tr></thead>
+          <tbody id="staff-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="edit-view" style="display:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <button class="admin-btn admin-btn-secondary" onclick="showList()">← 戻る</button>
+        <h2 style="font-size:20px;color:#7C8C6E;" id="form-title">新規作成</h2>
+      </div>
+      <div class="admin-card">
+        <div class="admin-form">
+          <input type="hidden" id="edit-id">
+          <label>名前</label>
+          <input type="text" id="edit-name" placeholder="スタッフ名">
+          <label>役職</label>
+          <input type="text" id="edit-role" placeholder="オーナースタイリスト">
+          <label>経験年数</label>
+          <input type="text" id="edit-experience" placeholder="15年">
+          <label>得意スタイル</label>
+          <input type="text" id="edit-specialty" placeholder="ショートヘア、ナチュラルカラー">
+          <label>プロフィール</label>
+          <textarea id="edit-profile" placeholder="プロフィール文を入力してください。" style="min-height:100px;"></textarea>
+          <label>画像パス</label>
+          <input type="text" id="edit-image" placeholder="images/staff-01.jpg">
+          <label>ステータス</label>
+          <select id="edit-status">
+            <option value="published">公開</option>
+            <option value="draft">下書き</option>
+          </select>
+          <div class="admin-form-actions">
+            <button class="admin-btn admin-btn-primary" onclick="saveItem()">保存する</button>
+            <button class="admin-btn admin-btn-danger" id="delete-btn" onclick="deleteItem()" style="display:none;">削除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="admin-toast" id="toast"></div>
+
+  <script src="../js/staff-store.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function renderList() {
+      const items = StaffStore.getAll();
+      document.getElementById('staff-table').innerHTML = items.map(s => {
+        const st = s.status === 'published' ? '<span class="status-badge status-published">公開中</span>' : '<span class="status-badge status-draft">下書き</span>';
+        return `<tr>
+          <td>${s.name}</td><td>${s.role}</td><td>${s.experience}</td><td>${st}</td>
+          <td><a href="#" onclick="editItem('${s.id}');return false;" style="color:#7C8C6E;font-size:13px;font-weight:600;">編集</a></td>
+        </tr>`;
+      }).join('');
+      if (items.length === 0) {
+        document.getElementById('staff-table').innerHTML = '<tr><td colspan="5" style="color:#999;text-align:center;padding:24px;">スタッフがいません</td></tr>';
+      }
+    }
+
+    function showList() {
+      document.getElementById('list-view').style.display = '';
+      document.getElementById('edit-view').style.display = 'none';
+      renderList();
+    }
+
+    function showEditor(id) {
+      document.getElementById('list-view').style.display = 'none';
+      document.getElementById('edit-view').style.display = '';
+      if (id) {
+        const item = StaffStore.getById(id);
+        if (!item) return showList();
+        document.getElementById('edit-id').value = item.id;
+        document.getElementById('edit-name').value = item.name;
+        document.getElementById('edit-role').value = item.role;
+        document.getElementById('edit-experience').value = item.experience;
+        document.getElementById('edit-specialty').value = item.specialty || '';
+        document.getElementById('edit-profile').value = item.profile || '';
+        document.getElementById('edit-image').value = item.image || '';
+        document.getElementById('edit-status').value = item.status;
+        document.getElementById('form-title').textContent = '編集';
+        document.getElementById('delete-btn').style.display = '';
+      } else {
+        document.getElementById('edit-id').value = '';
+        document.getElementById('edit-name').value = '';
+        document.getElementById('edit-role').value = '';
+        document.getElementById('edit-experience').value = '';
+        document.getElementById('edit-specialty').value = '';
+        document.getElementById('edit-profile').value = '';
+        document.getElementById('edit-image').value = '';
+        document.getElementById('edit-status').value = 'published';
+        document.getElementById('form-title').textContent = '新規作成';
+        document.getElementById('delete-btn').style.display = 'none';
+      }
+    }
+
+    function editItem(id) { showEditor(id); }
+
+    function saveItem() {
+      const id = document.getElementById('edit-id').value;
+      const name = document.getElementById('edit-name').value.trim();
+      if (!name) { alert('名前を入力してください'); return; }
+      StaffStore.save({
+        id: id || undefined,
+        name,
+        role: document.getElementById('edit-role').value,
+        experience: document.getElementById('edit-experience').value,
+        specialty: document.getElementById('edit-specialty').value,
+        profile: document.getElementById('edit-profile').value,
+        image: document.getElementById('edit-image').value,
+        status: document.getElementById('edit-status').value,
+      });
+      showToast('保存しました');
+      showList();
+    }
+
+    function deleteItem() {
+      const id = document.getElementById('edit-id').value;
+      if (!id) return;
+      if (!confirm('本当に削除しますか？')) return;
+      StaffStore.delete(id);
+      showToast('削除しました');
+      showList();
+    }
+
+    window.onAdminAuth = function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (id) { showEditor(id); } else { renderList(); }
+    };
+
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem('admin_auth_hash');
+      location.reload();
+    });
+  </script>
+</body>
+</html>

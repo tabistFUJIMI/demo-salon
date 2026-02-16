@@ -1,0 +1,10 @@
+[
+  { "id": "1", "name": "カット", "category": "カット", "price": 4400, "note": "", "status": "published", "order": 1 },
+  { "id": "2", "name": "カット＋カラー", "category": "セットメニュー", "price": 8800, "note": "リタッチの場合は¥7,700", "status": "published", "order": 2 },
+  { "id": "3", "name": "カット＋パーマ", "category": "セットメニュー", "price": 9900, "note": "", "status": "published", "order": 3 },
+  { "id": "4", "name": "カラー（リタッチ）", "category": "カラー", "price": 5500, "note": "", "status": "published", "order": 4 },
+  { "id": "5", "name": "カラー（フルカラー）", "category": "カラー", "price": 7700, "note": "", "status": "published", "order": 5 },
+  { "id": "6", "name": "パーマ", "category": "パーマ", "price": 6600, "note": "", "status": "published", "order": 6 },
+  { "id": "7", "name": "トリートメント", "category": "ケア", "price": 3300, "note": "", "status": "published", "order": 7 },
+  { "id": "8", "name": "ヘッドスパ", "category": "ケア", "price": 4400, "note": "", "status": "published", "order": 8 }
+]

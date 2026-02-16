@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お知らせ | ふじみDXラボ ヘアサロン</title>
+  <meta name="description" content="ふじみDXラボ ヘアサロンからのお知らせ。キャンペーン情報、営業時間の変更など最新情報をお届けします。">
+  <link rel="canonical" href="https://example.com/news.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/news.html">
+  <meta property="og:title" content="お知らせ | ふじみDXラボ ヘアサロン">
+  <meta property="og:description" content="ふじみDXラボ ヘアサロンからのお知らせ。キャンペーン情報、営業時間の変更など最新情報をお届けします。">
+  <meta property="og:image" content="https://example.com/images/hero-bg.jpg">
+  <meta property="og:site_name" content="ふじみDXラボ ヘアサロン">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="お知らせ | ふじみDXラボ ヘアサロン">
+  <meta name="twitter:description" content="ふじみDXラボ ヘアサロンからのお知らせ。">
+  <meta name="twitter:image" content="https://example.com/images/hero-bg.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://example.com/" },
+      { "@type": "ListItem", "position": 2, "name": "お知らせ", "item": "https://example.com/news.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">
+          <span>FUJIMI DX LAB</span>
+          <p class="logo-sub">HAIR SALON</p>
+        </a>
+      </div>
+      <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="news.html" class="active">お知らせ</a></li>
+          <li><a href="index.html#price">メニュー</a></li>
+          <li><a href="index.html#stylist">スタイリスト</a></li>
+          <li><a href="index.html#salon">サロン紹介</a></li>
+          <li><a href="index.html#contact">ご予約</a></li>
+        </ul>
+      </nav>
+      <div class="header-tel">
+        <p class="tel-label">ご予約・お問い合わせ</p>
+        <p class="tel-number">0545-00-2222</p>
+        <p class="tel-hours">9:30〜19:00（火曜定休）</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-title-en" style="color:rgba(255,255,255,0.5);">News</p>
+      <h2>お知らせ</h2>
+    </div>
+  </section>
+
+  <section id="news-page-content" style="padding:60px 0;">
+    <div class="container">
+      <div id="news-list-view">
+        <ul class="news-list" id="news-page-list"></ul>
+      </div>
+      <div id="news-detail-view" class="news-detail-inner" style="display:none;">
+        <div class="news-detail-header">
+          <div class="news-detail-meta">
+            <span class="news-date" id="detail-date"></span>
+            <span class="news-tag" id="detail-tag"></span>
+          </div>
+          <h2 id="detail-title"></h2>
+        </div>
+        <div class="news-detail-body" id="detail-body"></div>
+        <div style="margin-top:40px;">
+          <a href="news.html" class="btn-outline">← お知らせ一覧に戻る</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <p class="footer-company">ふじみDXラボ ヘアサロン</p>
+          <p class="footer-address">〒416-0000 静岡県富士市△△町3-4-5</p>
+          <p class="footer-tel">TEL: 0545-00-2222</p>
+        </div>
+        <div class="footer-nav">
+          <ul>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="news.html">お知らせ</a></li>
+            <li><a href="index.html#price">メニュー</a></li>
+            <li><a href="index.html#stylist">スタイリスト</a></li>
+            <li><a href="index.html#salon">サロン紹介</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2026 ふじみDXラボ ヘアサロン All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-reserve-float">
+    <a href="tel:0545002222" aria-label="予約する">予約</a>
+  </div>
+
+  <script src="js/news-store.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await NewsStore.init();
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+
+      if (id) {
+        const item = NewsStore.getById(id);
+        if (item) {
+          document.getElementById('news-list-view').style.display = 'none';
+          document.getElementById('news-detail-view').style.display = 'block';
+          const date = new Date(item.createdAt).toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' }).replace(/\//g,'.');
+          document.getElementById('detail-date').textContent = date;
+          const tag = document.getElementById('detail-tag');
+          tag.textContent = item.category;
+          tag.className = 'news-tag ' + (item.category === 'キャンペーン' ? 'tag-campaign' : 'tag-info');
+          document.getElementById('detail-title').textContent = item.title;
+          document.getElementById('detail-body').innerHTML = item.body;
+          document.title = item.title + ' | ふじみDXラボ ヘアサロン';
+        }
+      } else {
+        const list = document.getElementById('news-page-list');
+        const news = NewsStore.getPublished();
+        list.innerHTML = news.map(n => {
+          const date = new Date(n.createdAt).toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' }).replace(/\//g,'.');
+          const tagClass = n.category === 'キャンペーン' ? 'tag-campaign' : 'tag-info';
+          return `<li><a href="news.html?id=${n.id}">
+            <span class="news-date">${date}</span>
+            <span class="news-tag ${tagClass}">${n.category}</span>
+            <span class="news-text">${n.title}</span>
+          </a></li>`;
+        }).join('');
+        if (news.length === 0) {
+          list.innerHTML = '<li style="color:#999;padding:24px 0;">現在お知らせはありません。</li>';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
