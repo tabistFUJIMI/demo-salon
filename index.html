@@ -89,10 +89,10 @@
           <li><a href="index.html" class="active">ホーム</a></li>
           <li><a href="news.html">お知らせ</a></li>
           <li><a href="gallery.html">ギャラリー</a></li>
-          <li><a href="#price">メニュー</a></li>
-          <li><a href="#stylist">スタイリスト</a></li>
-          <li><a href="#salon">サロン紹介</a></li>
-          <li><a href="#contact">ご予約</a></li>
+          <li><a href="index.html#price">メニュー</a></li>
+          <li><a href="index.html#stylist">スタイリスト</a></li>
+          <li><a href="index.html#salon">サロン紹介</a></li>
+          <li><a href="index.html#contact">ご予約</a></li>
         </ul>
       </nav>
       <div class="header-tel">
@@ -125,6 +125,21 @@
       </ul>
       <div class="section-more reveal">
         <a href="news.html" class="btn-outline">お知らせ一覧を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ギャラリー -->
+  <section class="gallery-preview-section" id="gallery">
+    <div class="container">
+      <p class="section-title-en reveal">Gallery</p>
+      <h2 class="section-title reveal">スタイルギャラリー</h2>
+      <p class="section-desc reveal">最新のヘアスタイルをご紹介します。</p>
+      <div class="gallery-grid" id="gallery-preview">
+        <!-- JS で動的に挿入（3件プレビュー） -->
+      </div>
+      <div class="section-more reveal">
+        <a href="gallery.html" class="btn-outline">ギャラリーを見る</a>
       </div>
     </div>
   </section>
@@ -244,6 +259,7 @@
   </div>
 
   <script src="js/news-store.js" defer></script>
+  <script src="js/gallery-store.js" defer></script>
   <script src="js/price-store.js" defer></script>
   <script src="js/staff-store.js" defer></script>
   <script src="js/main.js" defer></script>
