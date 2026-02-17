@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スタイルギャラリー | ふじみDXラボ ヘアサロン</title>
+  <meta name="description" content="ふじみDXラボ ヘアサロンのスタイルギャラリー。最新のヘアスタイルをご紹介します。">
+  <link rel="canonical" href="https://example.com/gallery.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/gallery.html">
+  <meta property="og:title" content="スタイルギャラリー | ふじみDXラボ ヘアサロン">
+  <meta property="og:description" content="ふじみDXラボ ヘアサロンのスタイルギャラリー。最新のヘアスタイルをご紹介します。">
+  <meta property="og:image" content="https://example.com/images/hero-bg.jpg">
+  <meta property="og:site_name" content="ふじみDXラボ ヘアサロン">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="スタイルギャラリー | ふじみDXラボ ヘアサロン">
+  <meta name="twitter:description" content="ふじみDXラボ ヘアサロンのスタイルギャラリー。">
+  <meta name="twitter:image" content="https://example.com/images/hero-bg.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://example.com/" },
+      { "@type": "ListItem", "position": 2, "name": "スタイルギャラリー", "item": "https://example.com/gallery.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">
+          <span>FUJIMI DX LAB</span>
+          <p class="logo-sub">HAIR SALON</p>
+        </a>
+      </div>
+      <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="news.html">お知らせ</a></li>
+          <li><a href="gallery.html" class="active">ギャラリー</a></li>
+          <li><a href="index.html#price">メニュー</a></li>
+          <li><a href="index.html#stylist">スタイリスト</a></li>
+          <li><a href="index.html#salon">サロン紹介</a></li>
+          <li><a href="index.html#contact">ご予約</a></li>
+        </ul>
+      </nav>
+      <div class="header-tel">
+        <p class="tel-label">ご予約・お問い合わせ</p>
+        <p class="tel-number">0545-00-2222</p>
+        <p class="tel-hours">9:30〜19:00（火曜定休）</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-title-en" style="color:rgba(255,255,255,0.5);">Gallery</p>
+      <h2>スタイルギャラリー</h2>
+    </div>
+  </section>
+
+  <section style="padding:60px 0;">
+    <div class="container">
+      <p class="section-desc">当サロンの最新スタイルをご紹介します。</p>
+      <div style="text-align:center;margin-bottom:32px;" id="gallery-filter"></div>
+      <div class="content-grid" id="gallery-page-grid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <p class="footer-company">ふじみDXラボ ヘアサロン</p>
+          <p class="footer-address">〒416-0000 静岡県富士市△△町3-4-5</p>
+          <p class="footer-tel">TEL: 0545-00-2222</p>
+        </div>
+        <div class="footer-nav">
+          <ul>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="news.html">お知らせ</a></li>
+            <li><a href="gallery.html">ギャラリー</a></li>
+            <li><a href="index.html#price">メニュー</a></li>
+            <li><a href="index.html#salon">サロン紹介</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2026 ふじみDXラボ ヘアサロン All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-reserve-float">
+    <a href="tel:0545002222" aria-label="予約する">予約</a>
+  </div>
+
+  <style>
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .content-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .content-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .content-card-img {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .content-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .content-card-category {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--color-primary, #7C8C6E);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .content-card-body {
+      padding: 20px;
+    }
+    .content-card-body h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .content-card-body p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .btn-filter {
+      background: none;
+      border: 2px solid var(--color-border, #ddd);
+      color: var(--color-text-light, #666);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 4px 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      border-color: var(--color-primary, #7C8C6E);
+      color: var(--color-primary, #7C8C6E);
+      background: rgba(124,140,110,0.05);
+    }
+    @media (max-width: 600px) {
+      .content-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script src="js/gallery-store.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await GalleryStore.init();
+      const grid = document.getElementById('gallery-page-grid');
+      const filterContainer = document.getElementById('gallery-filter');
+      const allItems = GalleryStore.getPublished();
+
+      const categories = [...new Set(allItems.map(g => g.category))];
+      filterContainer.innerHTML = '<button class="btn-filter active" data-filter="all">すべて</button>' +
+        categories.map(c => `<button class="btn-filter" data-filter="${c}">${c}</button>`).join('');
+
+      function render(filter) {
+        const items = filter === 'all' ? allItems : allItems.filter(g => g.category === filter);
+        grid.innerHTML = items.map(g => `
+          <div class="content-card">
+            <div class="content-card-img">
+              <img src="${g.image}" alt="${g.title}" loading="lazy">
+              <span class="content-card-category">${g.category}</span>
+            </div>
+            <div class="content-card-body">
+              <h3>${g.title}</h3>
+              <p>${g.description || ''}</p>
+            </div>
+          </div>
+        `).join('');
+        if (items.length === 0) {
+          grid.innerHTML = '<p style="color:#999;text-align:center;padding:40px 0;">現在スタイルはありません。</p>';
+        }
+      }
+
+      render('all');
+
+      filterContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-filter')) {
+          filterContainer.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          render(e.target.dataset.filter);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
